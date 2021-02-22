@@ -54,8 +54,8 @@
 }
 .container-4 {
   padding: 8px 8px;
-  display: flex;
-  background-color: #a59888;
+  /* display: flex; */
+  background-color: white;
 
 }
 .container-3 {
@@ -78,7 +78,7 @@
   flex-direction: row;
   padding: 8px 5px;
   cursor: pointer;
-  background-color: #a07979;
+  background-color: #edebeb;
 }
 .selected-user-details {
   padding-left: 10px;
@@ -134,6 +134,7 @@
   flex: 1;
   overflow: auto;
   border-style: outset;
+  display: flex;
 }
 
 .title {
@@ -142,10 +143,39 @@
 
 .list-item {
   padding: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(250, 224, 224, 0.5);
   margin-bottom: 10px;
-  background-color: #adadad;
+  background-color: #f1f1f1;
+  display: flex;
 
+  border-radius: 18px;
+
+}
+.list-item:hover{
+
+}
+.my-popup-content {
+  margin: auto;
+  background: rgb(255, 255, 255);
+  width: 50%;
+  padding: 5px;
+}
+.my-popup-arrow {
+  color: rgb(255, 255, 255);
+}
+[role='tooltip'].my-popup-content {
+  width: 200px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
+}
+
+.my-popup-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+[data-popup='tooltip'].my-popup-overlay {
+  background: transparent;
+}
+button.ui.blue.button {
+  padding: 5px;
 }
 
 button.blue {
@@ -192,3 +222,28 @@ button.blue:active {
 [data-popup="tooltip"].popup-overlay {
   background: transparent;
 }
+.ui.form{
+  margin: 21px 14px 16px 10px;
+}
+input.search{
+  background-color: white;
+}
+.assigned-pres-cond{
+   flex: 1; 
+  flex-direction: column;
+  border-style: outset;  
+  overflow: auto;
+  
+  
+}
+.remaining-pres-cond{
+  flex: 1;
+  border-style: outset;
+  overflow: auto;  
+}
+.assigned-title{
+  padding: 10px;
+  overflow: auto;
+}
+
+  
