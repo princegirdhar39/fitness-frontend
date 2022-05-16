@@ -3,10 +3,10 @@ import { FaSearch } from "react-icons/fa";
 
 export const SearchUser = (props) => {
   return (
-    <div>
-      {/* {<FaSearch/>} */}
+    <div style={{backgroundColor:'',display: "flex",paddingTop:'px',}}>
+      <FaSearch style={{marginTop: '9px'}} />
       <input
-        className="search"
+        className="search "
         type="text"
         placeholder="Search" 
         onChange={(e) => props.fsetSearch(e.target.value)}

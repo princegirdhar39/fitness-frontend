@@ -16,7 +16,7 @@ export const SelectedUser = (props) => {
               {props.selectedUser.first_name} {props.selectedUser.last_name}
             </div>
           </div>
-          <Button style={{width : 59, backgroundColor: 'red', color:'white',padding: '10px'}}>Logout</Button>
+          {/* <Button style={{width : 59, backgroundColor: 'red', color:'white',padding: '10px'}}>Logout</Button> */}
 
 
         </div>

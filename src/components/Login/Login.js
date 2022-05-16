@@ -1,36 +1,56 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Login.css';
+import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
-async function loginUser(credentials) {
- return fetch('http://localhost:3000/users/login', {
-   method: 'POST',
-   headers: {
-     'Content-Type': 'application/json'
-   },
-   body: JSON.stringify(credentials)
- })
-   .then(data => data.json())
-}
+// async function loginUser(credentials) {
+//  return fetch('http://localhost:3000/users/login', {
+//    method: 'POST',
+//    headers: {
+//      'Content-Type': 'application/json'
+//    },
+//    body: JSON.stringify(credentials)
+//  })
+//    .then(data => data.json())
+// }
 
 export default function Login({ setToken }) {
-  const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
-  const [error, setError] = useState(false);
+  
+  const [username, setUserName] = useState('Prince' );
+  const [password, setPassword] = useState('test@123');
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const [error, setError] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(username==="prince" && password==="test@123"){
+    setLoggedIn(true);
 
-    const response = await loginUser({
-      username,
-      password
-    });
-    console.log(response);
-    if(response.success){
-        setToken("ABCDEF");
-        setError(false)
-    } else {
-        setError(true)
+
     }
+    else{
+      console.log("invalid");
+      setError("Invalid credentials");
+    }
+    
+
+
+    
+   
+    
+
+    // const response = await loginUser({
+    //   username,
+    //   password
+    // });
+    // console.log(response);
+    // if(response.success){
+    //     setToken("ABCDEF");
+    //     setError(false)
+    // } else {
+    //     setError(true)
+    // }
     
   }
 
@@ -49,9 +69,12 @@ export default function Login({ setToken }) {
           <input type="password" placeholder="password" onChange={e => setPassword(e.target.value)} />
         </label>
         <div>
-          <button type="submit">Login</button>
+          <Link to="/dashboard"><button type="submit" onClick={handleSubmit}>Login</button></Link>  
+          {loggedIn &&  <Redirect to ='/dashboard' />}
+           <div style={{color:"red"}}>{error}</div>
+           
+        
         </div>
-        {error && <div style={{color:"red"}}>Invalid Credentials</div>}
       </form>
       </div>
     </div>

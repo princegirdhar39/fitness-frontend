@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: row;
   height: 100vh;
+  /* background-color: #4c8ffb; */
+
 }
 .container-2 {
   width: 250px;
@@ -11,21 +13,27 @@
   border-right: 1px solid #d2bdbd;
   padding-right: 5px;
   padding-bottom: 8px;
+  /* background-color: #4c8ffb; */
+
   /* background-color: red; */
 }
 
 .user-list {
   flex: 1;
   overflow: auto;
-  background-color: #f7f7f7;
+  /* background-color: #f7f7f7; */
 
 }
 .container-4 input[type="text"] {
   padding: 6px;
+  margin-top: 2px;
   flex: 1;
   outline: none;
   border-radius: 4px;
-  border: 2px solid #b9abab;
+  border-style: hidden;
+  width: fit-content ;
+  /* background-color: #3079ed; */
+  width: 155px;
 }
 .user-list-item {
   display: flex;
@@ -54,8 +62,9 @@
 }
 .container-4 {
   padding: 8px 8px;
-  /* display: flex; */
+  display: flex;
   background-color: white;
+  
 
 }
 .container-3 {
@@ -176,6 +185,11 @@
 }
 button.ui.blue.button {
   padding: 5px;
+  background-color: rgb(99 102 241);
+  /* color: #2370fe; */
+  border-radius: 5px;
+  /* padding-left: 10px; */
+  /* margin-right: 19px; */
 }
 
 button.blue {
@@ -225,8 +239,8 @@ button.blue:active {
 .ui.form{
   margin: 21px 14px 16px 10px;
 }
-input.search{
-  background-color: white;
+input{
+ 
 }
 .assigned-pres-cond{
    flex: 1; 
@@ -244,6 +258,13 @@ input.search{
 .assigned-title{
   padding: 10px;
   overflow: auto;
+}
+.notselected{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  align-items: center;
 }
 
   

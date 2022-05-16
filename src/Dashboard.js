@@ -18,6 +18,7 @@ import {
 import { AddUser } from "./components/add-usermodel";
 import { SelectedUser } from "./components/selected-users";
 import { FaPrescription } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
@@ -31,16 +32,22 @@ const Dashboard = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [open, setOpen] = React.useState(false);
+  const [note,setNote] = useState([]);
 
   const [remainingPrescriptions, setRemainingPrescriptions] = useState([]);
   const [remainingConditions, setReamainingConditions] = useState([]);
 
   const userSelected = (user) => {
     setSelectedUser(user);
+      console.log('All prescriptions',all_prescriptions);
+      console.log('user.prescription',user.prescription);
+      console.log('user.conditions',user.conditions);
+      // console.log(selectedUser.notes);
+
 
     setRemainingPrescriptions(
       all_prescriptions.filter((pres) => {
-        return !user.prescriptions.some(
+        return !user.prescription.some(
           (user_pres) => user_pres.id === pres.id
         );
       })
@@ -53,15 +60,39 @@ const Dashboard = () => {
     );
     
   };
+  const updateNotes = () => {
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: selectedUser.id,
+        note: selectedUser.notes,
+      }),
+    };
+    fetch(
+      "http://localhost:3000/users/update-user-note",
+      requestOptions
+    ).then((response) => response.json())
+  }
+
 
   const addPrescriptionToUser = (prescription) => {
+    // console.log('selected user:', selectedUser.prescriptions);
     setRemainingPrescriptions(
       remainingPrescriptions.filter((pres) => pres.id !== prescription.id)
     );
     setSelectedUser({
       ...selectedUser,
-      prescriptions: [...selectedUser.prescriptions, prescription],
+      prescription: [...selectedUser.prescription, prescription],
     });
+    console.log('selected user:', selectedUser);
+    console.log({
+      ...selectedUser,
+      prescriptions: [...selectedUser.prescription, prescription],
+    })
+
+    
+
     //add prescription
     const requestOptions = {
       method: "POST",
@@ -75,14 +106,14 @@ const Dashboard = () => {
     fetch("http://localhost:3000/users/assign-prescription", requestOptions)
       .then((response) => response.json())
       .then((newPrescription) => {
-        //setOpen(false);
+        // setOpen(false);
         setPrescriptions([newPrescription, ...all_prescriptions]);
       });
   };
   const removePrescription = (prescription) => {
     setSelectedUser({
       ...selectedUser,
-      prescriptions: selectedUser.prescriptions.filter(
+      prescriptions: selectedUser.prescription.filter(
         (pres) => pres.id !== prescription.id
       ),
     });
@@ -134,11 +165,11 @@ const Dashboard = () => {
   //get prescriptions
 
   useEffect(() => {
-    fetch("http://localhost:3000/prescriptions")
+    fetch("http://localhost:3000/prescription")
       .then((res) => res.json())
       .then((data) => setPrescriptions(data));
   }, []);
-
+//get conditions
   useEffect(() => {
     fetch("http://localhost:3000/conditions")
       .then((res) => res.json())
@@ -173,6 +204,7 @@ const Dashboard = () => {
       .then((newUser) => {
         setOpen(false);
         setUsers([newUser, ...users]);
+        
       });
   };
 
@@ -189,11 +221,22 @@ const Dashboard = () => {
         email={email}
         open={open}
       />
+      <div style={{backgroundColor:'rgb(75 85 99)',height:'65px',display: 'flex',justifyContent:'space-between',alignItems:'center',paddingLeft:'28PX',position: 'sticky',top: '0'}} className="header">
+       <div style={{color: 'white',fontSize:'30PX'}} >DigiHealth</div>
+       {/* <Link to='/' style={{color: 'white',fontSize:'20PX', backgroundColor: 'red',cursor:'pointer',padding: '8px',marginRight:'10px',borderRadius:'4px' }}>Logout</Link> */}
+       
+       </div> 
 
       <div className="container-1">
+     
+      {/* <div>hello</div> */}
+        
         <div className="container-2">
           <div className="container-4">
             <SearchUser fsetSearch={setSearch} />
+            <Button color="blue" onClick={() => setOpen(true)}>
+              New
+            </Button>
           </div>
 
           <div className="user-list">
@@ -208,9 +251,9 @@ const Dashboard = () => {
             })}
           </div>
           <div className="addUser">
-            <Button color="blue" onClick={() => setOpen(true)}>
+            {/* <Button color="blue" onClick={() => setOpen(true)}>
               Add User
-            </Button>
+            </Button> */}
           </div>
         </div>
         <div className="container-3">
@@ -218,15 +261,18 @@ const Dashboard = () => {
 
           <div className="container-7">
             {!selectedUser && (
-              <div className="lines">
-              <div className="line"></div>
-              <div className ="line"></div>
-              <div className="line"></div>
-             
-            </div>
+               <div className="notselected ">
+               <img
+               style={{width:'8rem',marginBottom: '1rem'}}
+                 className="w-32 mb-4"
+                 src="https://cdn.pixabay.com/photo/2022/01/08/11/06/plant-6923699_960_720.png"
+               />
+               <div>It seems you haven't selected any user yet.</div>
+               <div>Choose one on the left.</div>
+             </div>
             )} 
             {selectedUser && (
-              <div className="pres-cond">
+              <div style={{background: selectedUser === selectedUser.firstName ? "rgba(55, 65, 81, 0.15)" : "transparent",}} className="pres-cond">
                 <div className="list-container">
                   <div className="title">Prescriptions</div>
                   <div className="list">
@@ -234,13 +280,15 @@ const Dashboard = () => {
                       <div className="assigned-title">
                         Assigned-prescriptions
                       </div>
-                      {selectedUser.prescriptions.map((p) => (
+                      {selectedUser.prescription.map((p) => (
                         <div className="list-item">
                           {p.prescription}
                           <MdClear style={{color:"red", cursor:"pointer", flex: 1,}} onClick={() => removePrescription(p)}/>
                           {/* <Button onClick={() => removePrescription(p)}>
                             Remove
                           </Button> */}
+                          {/* <MdClear style={{color:"red", cursor:"pointer", flex: 1} } onClick={() => removePrescription(c)}/> */}
+
                         </div>
                       ))}
                     </div>
@@ -253,6 +301,7 @@ const Dashboard = () => {
                         <div className="list-item">
                           {p.prescription}
                           <MdDone style={{color:"green", cursor:"pointer" , flex: 1}} onClick={() => addPrescriptionToUser(p)}/>
+
                           
                         </div>
                         // </div>
@@ -308,24 +357,7 @@ const Dashboard = () => {
                   />
                 </Form>
                 <Button
-                  onClick={() => {
-                    // API CALL
-                    const requestOptions = {
-                      method: "PUT",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({
-                        userId: selectedUser.id,
-                        note: selectedUser.note,
-                      }),
-                    };
-                    fetch(
-                      "http://localhost:3000/users/update-user-note",
-                      requestOptions
-                    ).then((response) => response.json());
-
-                    // user_id: selectedUser.id,
-                    // note: selectedUser.note
-                  }}
+                  onClick={() => updateNotes}
                   color="blue"
                 >
                   Update Note

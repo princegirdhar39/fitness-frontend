@@ -10,9 +10,11 @@ const App = () => {
     return(
     <BrowserRouter>
      <Switch>
-          <Route path="/dashboard">
+     <Route path="/dashboard" component={Dashboard} />
+          
+          <Route path="/login" component={Login} />
           <Login setToken={setToken} />
-          </Route>
+         
         </Switch>
     
     
