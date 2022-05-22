@@ -6,7 +6,7 @@ export const UserListItem = (props) => {
     <div>
       <div className="user-list-item" onClick={() => props.setSelectedUser(user)}>
         <img
-          src={`https://randomuser.me/api/portraits/men/${user.id}.jpg`}
+          src={`https://t3.ftcdn.net/jpg/01/18/01/98/360_F_118019822_6CKXP6rXmVhDOzbXZlLqEM2ya4HhYzSV.jpg`}
           alt="Avatar"
           className="avatar"
         />

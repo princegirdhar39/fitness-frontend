@@ -8,6 +8,8 @@ import {
   TextArea,
 } from "semantic-ui-react";
 import './add-user-model.css';
+import { notification } from "antd";
+
 
 
 export const AddUser = (props) => {
@@ -78,7 +80,7 @@ export const AddUser = (props) => {
           Cancel
         </Button>
         <Button
-          style={{ width: 100 }}
+          style={{ width: 100,height: 39 }}
           content="Add"
           labelPosition="right"
           icon="checkmark"

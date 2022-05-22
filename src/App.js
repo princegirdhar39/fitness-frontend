@@ -13,7 +13,7 @@ const App = () => {
      <Route path="/dashboard" component={Dashboard} />
           
           <Route path="/login" component={Login} />
-          <Login setToken={setToken} />
+          {/* <Login setToken={setToken} /> */}
          
         </Switch>
     

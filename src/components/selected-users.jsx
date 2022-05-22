@@ -7,7 +7,7 @@ export const SelectedUser = (props) => {
       {props.selectedUser && (
         <div className="selected-item">
           <img
-            src={`https://randomuser.me/api/portraits/men/${props.selectedUser.id}.jpg`}
+            src={`https://t3.ftcdn.net/jpg/01/18/01/98/360_F_118019822_6CKXP6rXmVhDOzbXZlLqEM2ya4HhYzSV.jpg`}
             alt="Avatar"
             className="avatar"
           />
